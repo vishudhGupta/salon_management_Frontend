@@ -1,0 +1,142 @@
+<div class="container-fluid p-3">
+<nav class="navbar navbar-expand-lg navbar-light bg-white shadow-sm px-3 py-2 mb-4 sticky-top">
+  <a class="navbar-brand d-flex align-items-center" href="#">
+    <img src="assets/salon-logo.png" alt="Logo" width="32" height="32" class="me-2">
+    <span class="fw-bold">Lotus Studio</span>
+  </a>
+
+  <div class="ms-auto d-flex align-items-center">
+    <span class="me-3 text-muted d-none d-md-inline">Hello, Admin</span>
+    <div class="dropdown">
+      <button class="btn btn-sm btn-outline-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown">
+        <img src="assets/avatar.png" alt="Profile" width="32" height="32" class="rounded-circle" />
+      </button>
+      <ul class="dropdown-menu dropdown-menu-end">
+        <li><a class="dropdown-item" href="#">Profile</a></li>
+        <li><a class="dropdown-item" href="#">Settings</a></li>
+        <li><hr class="dropdown-divider"></li>
+        <li><a class="dropdown-item text-danger" href="#">Logout</a></li>
+      </ul>
+    </div>
+  </div>
+</nav>
+
+  <!-- Stats Cards -->
+  <div class="row gy-3">
+    <div class="col-6 col-md-3" *ngFor="let stat of stats">
+      <div class="card shadow-sm p-3 text-center h-100 hover-zoom">
+        <h6 class="text-muted small">{{ stat.title }}</h6>
+        <h5 class="fw-bold">{{ stat.value }}</h5>
+        <span [class.text-success]="stat.note.includes('↑')" [class.text-danger]="stat.note.includes('↓')">
+          {{ stat.note }}
+        </span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Customers + Popular Services -->
+  <div class="row gy-3 mt-3">
+    <div class="col-md-6">
+  <div class="card shadow-sm p-3 h-100 hover-glow">
+    <h6 class="mb-3">Customers Overview</h6>
+    <div class="d-flex justify-content-center align-items-center">
+      <canvas baseChart
+              [data]="customerPieChartData"
+              [options]="customerPieChartOptions"
+              [type]="'doughnut'"
+              style="max-width: 300px; max-height: 300px;">
+      </canvas>
+    </div>
+    <div class="text-center mt-3">
+      <span class="me-3 text-success fw-semibold">New: 130</span>
+      <span class="text-purple fw-semibold" style="color: #6f42c1;">Old: 56</span>
+    </div>
+  </div>
+</div>
+
+
+    <div class="col-md-6">
+      <div class="card shadow-sm p-3 h-100 hover-glow">
+        <h6>Popular Services</h6>
+        <ul class="list-group small">
+          <li class="list-group-item d-flex justify-content-between align-items-center" *ngFor="let s of services">
+            {{ s.name }}
+            <span class="fw-bold text-muted">${{ s.revenue }}</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+
+  <!-- Charts Section -->
+  <div class="row gy-3 mt-3">
+    <!-- Revenue Bar Chart -->
+    <div class="col-md-6">
+      <div class="card shadow-sm p-3 h-100">
+        <h6 class="mb-3">Weekly Revenue</h6>
+        <canvas baseChart
+                [data]="revenueChartData"
+                [options]="revenueChartOptions"
+                [type]="'bar'">
+        </canvas>
+      </div>
+    </div>
+
+    <!-- Visits Line Chart -->
+    <div class="col-md-6">
+      <div class="card shadow-sm p-3 h-100">
+        <h6 class="mb-3">Monthly Visits</h6>
+        <canvas baseChart
+                [data]="visitsChartData"
+                [options]="visitsChartOptions"
+                [type]="'line'">
+        </canvas>
+      </div>
+    </div>
+  </div>
+
+  <!-- Appointments Table -->
+  <div class="row gy-3 mt-3">
+    <div class="col-12">
+      <div class="card shadow-sm p-3">
+        <h6>Appointments</h6>
+        <div class="table-responsive">
+          <table class="table table-bordered table-hover small text-nowrap">
+            <thead class="table-light">
+              <tr>
+                <th>Appt ID</th>
+                <th>Customer</th>
+                <th>Phone</th>
+                <th>Service</th>
+                <th>Expert ID</th>
+                <th>Status</th>
+                <th>Date</th>
+                <th>Time</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of appointments">
+                <td>{{ a.appointment_id }}</td>
+                <td>{{ getUserName(a.user_id) }}</td>
+                <td>{{ getUserPhone(a.user_id) }}</td>
+                <td>{{ getServiceName(a.service_id) }}</td>
+                <td>{{ a.expert_id }}</td>
+                <td>
+                  <span class="badge" [ngClass]="{
+                    'bg-warning text-dark': a.status === 'Pending',
+                    'bg-success': a.status === 'Confirmed'
+                  }">
+                    {{ a.status }}
+                  </span>
+                </td>
+                <td>{{ a.appointment_date }}</td>
+                <td>{{ a.appointment_time }}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

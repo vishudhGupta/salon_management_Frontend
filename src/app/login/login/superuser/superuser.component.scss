@@ -1,0 +1,29 @@
+.card {
+  border-radius: 0.75rem;
+  transition: all 0.2s ease;
+}
+.hover-zoom:hover {
+  transform: scale(1.03);
+}
+.hover-glow:hover {
+  box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
+}
+.table th, .table td {
+  vertical-align: middle;
+}
+@media (max-width: 576px) {
+  .card h5, .card h6 {
+    font-size: 0.95rem;
+  }
+  .table-responsive {
+    font-size: 0.85rem;
+  }
+}
+.navbar-brand span {
+  font-size: 1.1rem;
+  color: #333;
+}
+
+.dropdown-toggle::after {
+  display: none;
+}
