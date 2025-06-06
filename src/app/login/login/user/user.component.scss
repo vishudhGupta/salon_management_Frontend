@@ -1,27 +1,20 @@
 .dashboard-container {
   height: 100vh;
-  background: #f9f9ff;
+  background: white;
 }
 
 .sidebar {
   width: 250px;
-  background: #f3f0ff;
+  background: #323336;
+  color: #fff;
   border-right: 1px solid #e0dfff;
-
   .profile-img {
     border-radius: 50%;
     width: 80px;
     height: 80px;
   }
 
-  .nav-item {
-    font-weight: 500;
-    cursor: pointer;
-    padding: 10px 0;
-    &:hover {
-      color: #6c4ae2;
-    }
-  }
+
 }
 
 .main-content {

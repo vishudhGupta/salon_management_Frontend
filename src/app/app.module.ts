@@ -16,6 +16,7 @@ export function loadConfigFactory(configService: ConfigService): () => Promise<v
 @NgModule({
   declarations: [AppComponent],
   imports: [BrowserModule, AppRoutingModule, FormsModule, ReactiveFormsModule,NgChartsModule,HttpClientModule],
+  exports: [],
   providers: [],
   bootstrap: [AppComponent],
   

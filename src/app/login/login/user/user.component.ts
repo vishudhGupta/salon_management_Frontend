@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ApiConstants } from 'src/app/api.constant';
 import { ApiServiceService } from 'src/app/core/api-services/api-service.service';
-
+import { ConfigService } from 'src/app/config.service';
+import { Router } from '@angular/router';
 @Component({
   selector: 'app-user',
   templateUrl: './user.component.html',
@@ -13,9 +14,13 @@ export class UserComponent implements OnInit {
 get upcomingAppointments() {
   if (!this.userData?.appointments) return [];
   const now = new Date();
-  return this.userData.appointments.filter((app:any) => new Date(app.appointment_date) >= now);
+  return this.userData.appointments.filter((app:any) => app.status === 'confirmed' );
 }
 
+get pendingAppointments() {
+  if (!this.userData?.appointments) return [];
+  return this.userData.appointments.filter((app:any) => app.status === 'pending');
+}
 get recentAppointments() {
   if (!this.userData?.appointments) return [];
   const now = new Date();
@@ -31,10 +36,14 @@ get canceledAppointments() {
 }
 
 
-   constructor(private apiService: ApiServiceService) {}
+   constructor(private apiService: ApiServiceService, private configService: ConfigService, private router: Router) {}
+
+   logout(): void {
+     this.configService.logout();
+     this.router.navigate(['/']);
+   }
 
   ngOnInit(): void {
-    
     const userId = localStorage.getItem('userId');
     if (!userId) {
       console.error('User ID missing');
@@ -43,7 +52,7 @@ get canceledAppointments() {
 
     const url = ApiConstants.user_dashboard.replace('{{user_id}}', userId);
 
-    this.apiService.getRequestedResponse(`http://127.0.0.1:8000/api${url}`).subscribe({
+    this.apiService.getRequestedResponse(`${url}`).subscribe({
       next: (userData) => {
         console.log('User dashboard data:', userData);
         // Handle the user dashboard data here
@@ -58,4 +67,6 @@ get canceledAppointments() {
     });
   }
 
+
+  
 }

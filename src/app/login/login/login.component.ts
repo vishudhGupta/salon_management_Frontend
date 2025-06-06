@@ -41,7 +41,7 @@ togglePasswordVisibility(): void {
     };
 
   
-    this.apiService.postRequestedResponse(`http://127.0.0.1:8000/api${ApiConstants.login}`,loginBody).subscribe({
+    this.apiService.postRequestedResponse(`${ApiConstants.login}`,loginBody).subscribe({
       next: (response) => {
         console.log('Login successful:', response);
         // Handle successful login here

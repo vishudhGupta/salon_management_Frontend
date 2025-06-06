@@ -1,21 +1,41 @@
-<div *ngIf="userData" class="dashboard-container d-flex">
-  <!-- Sidebar -->
-  <aside class="sidebar p-4">
-    <div class="text-center mb-4">
-      <img src="https://via.placeholder.com/100x100.png?text={{ userData.name[0] }}" class="profile-img mb-2" />
-      <h5>{{ userData.name }}</h5>
+<div *ngIf="userData">  
+  <!-- Topbar -->
+  <header class="topbar d-flex justify-content-between align-items-center p-3">
+    <div class="logo">
+      <img src="https://madhawks.com/public/uploads/site/madhawks-logo_1714453594.png" alt="Logo" height="50" width="200" />
     </div>
-    <ul class="nav flex-column gap-3">
-      <li class="nav-item"><i class="bi bi-house-door"></i> Dashboard</li>
-      <li class="nav-item"><i class="bi bi-calendar"></i> Appointments</li>
-      <li class="nav-item"><i class="bi bi-heart"></i> Favorites</li>
-      <li class="nav-item"><i class="bi bi-gear"></i> Settings</li>
-    </ul>
-  </aside>
+    <div class="user-info d-flex align-items-center">
+      <img src="https://ui-avatars.com/api/?name={{ userData.name }}&background=random&rounded=true" class="profile-img me-2" height="40" width="40" />
+      <span>{{ userData.name }}</span>
+      <button class="btn btn-outline-secondary ms-3" (click)="logout()">Logout</button>
+    </div>
+    </header>
+<div class="dashboard-container d-flex">
+  <!-- Sidebar -->
+ <aside class="sidebar p-4 ">
+  <div class="text-center mb-4">
+    <img
+      [src]="'https://ui-avatars.com/api/?name=' + (userData?.name || 'Guest') + '&background=random&rounded=true'"
+      class="profile-img mb-2"
+      alt="User Avatar"
+    />
+    <h5>{{ userData?.name }}</h5>
+    <p class="text-white d-flex gap-2 align-items-center">
+      <i class="bi bi-envelope-at-fill"></i>{{ userData?.email }}
+    </p>
+    <p class="text-white d-flex gap-2 align-items-center">
+      <i class="bi bi-telephone-fill"></i>{{ userData?.phone_number }}
+    </p>
+    <p class="text-white d-flex gap-2 align-items-center">
+      <i class="bi bi-geo-alt-fill"></i>{{ userData?.address }}
+    </p>
+  </div>
+</aside>
+
 
   <!-- Main Content -->
   <main class="main-content p-4 w-100">
-    <h3 class="fw-bold mb-4">User Dashboard</h3>
+    <h3 class="fw-bold mb-4">Welcome, {{ userData.name }}</h3>
 
     <!-- Stats Cards -->
     <div class="row mb-4">
@@ -40,57 +60,87 @@
 
     <!-- Appointments Section -->
     <div class="row">
-      <div class="col-md-8">
+      <div class="col">
         <!-- Upcoming Appointments -->
         <div class="mb-4">
           <div class="d-flex justify-content-between align-items-center">
             <h5>Upcoming Appointments</h5>
-            <a href="#">View All</a>
+            
           </div>
           <table class="table table-bordered table-light" *ngIf="upcomingAppointments.length">
             <thead>
-              <tr><th>Date</th><th>Time</th><th>Service</th></tr>
+              <tr><th>Date</th><th>Time</th><th>Service</th><th>Salon</th><th>Address</th><th>Expert</th><th>Status</th></tr>
             </thead>
             <tbody>
               <tr *ngFor="let a of upcomingAppointments">
                 <td>{{ a.appointment_date | date:'mediumDate' }}</td>
                 <td>{{ a.appointment_time }}</td>
                 <td>{{ a.service.name }}</td>
+                <td>{{ a.salon.name }}</td>
+                <td>{{ a.salon.address }}</td>
+                <td>{{ a.expert.name }}</td>
+                <td><span class="badge rounded-pill text-bg-warning">{{ a.status | uppercase }}</span></td>
               </tr>
             </tbody>
           </table>
         </div>
+
+        <!-- pending appointments -->
+        <div class="mb-4">
+          <div class="d-flex justify-content-between align-items-center">
+            <h5>Pending Appointments</h5>
+            
+          </div>
+          <table class="table table-bordered table-light" *ngIf="pendingAppointments.length">
+            <thead>
+              <tr><th>Date</th><th>Time</th><th>Service</th><th>Salon</th><th>Address</th><th>Expert</th><th>Status</th></tr>
+            </thead>
+            <tbody>
+              <tr *ngFor="let a of pendingAppointments">
+                <td>{{ a.appointment_date | date:'mediumDate' }}</td>
+                <td>{{ a.appointment_time }}</td>
+                <td>{{ a.service.name }}</td>
+                <td>{{ a.salon.name }}</td>
+                <td>{{ a.salon.address }}</td>
+                <td>{{ a.expert.name }}</td>
+                 <td><span class="badge rounded-pill text-bg-primary">{{ a.status | uppercase }}</span></td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
 
         <!-- Recent Appointments -->
         <div>
           <div class="d-flex justify-content-between align-items-center">
             <h5>Recent Appointments</h5>
-            <a href="#">View All</a>
+            
           </div>
           <table class="table table-bordered table-light" *ngIf="recentAppointments.length">
             <thead>
-              <tr><th>Date</th><th>Service</th><th>Status</th></tr>
+              <tr><th>Date</th><th>Time</th><th>Service</th><th>Salon</th><th>Address</th><th>Expert</th><th>Status</th></tr>
             </thead>
             <tbody>
               <tr *ngFor="let a of recentAppointments">
-                <td>{{ a.appointment_date | date:'mediumDate' }}</td>
+               <td>{{ a.appointment_date | date:'mediumDate' }}</td>
+                <td>{{ a.appointment_time }}</td>
                 <td>{{ a.service.name }}</td>
-                <td>{{ a.status }}</td>
+                <td>{{ a.salon.name }}</td>
+                <td>{{ a.salon.address }}</td>
+                <td>{{ a.expert.name }}</td>
+               <td [ngSwitch]="a.status">
+                  <span *ngSwitchCase="'confirmed'" class="badge rounded-pill text-bg-warning">CONFIRMED</span>
+                  <span *ngSwitchCase="'completed'" class="badge rounded-pill text-bg-success">COMPLETED</span>
+                  <span *ngSwitchCase="'canceled'" class="badge rounded-pill text-bg-danger">CANCELED</span>
+                  <span *ngSwitchDefault class="badge rounded-pill text-bg-primary">PENDING</span>
+               </td>
               </tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- Favorite Stylists -->
-      <div class="col-md-4">
-        <h5>Favorite Stylists</h5>
-        <p *ngIf="!userData.favorite_salons?.length" class="text-muted">No favorite stylists available.</p>
-        <div *ngFor="let salon of userData.favorite_salons" class="d-flex align-items-center mb-3">
-          <img src="https://via.placeholder.com/40" class="stylist-img me-3" />
-          <span>{{ salon.name }}</span>
-        </div>
-      </div>
     </div>
   </main>
+</div>
 </div>

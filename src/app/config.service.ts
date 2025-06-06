@@ -8,6 +8,8 @@ import { lastValueFrom } from 'rxjs';
 export class ConfigService {
   private config: any;
 
+
+  
   constructor(private http: HttpClient) {}
 
   async loadConfig(): Promise<void> {
@@ -19,4 +21,26 @@ export class ConfigService {
   get(key: string): any {
     return this.config ? this.config[key] : null;
   }
+  logout(): void {
+    localStorage.removeItem('userId');
+    localStorage.removeItem('type');
+    localStorage.removeItem('token'); // optional, if using JWT
+  }
+
+  isLoggedIn(): boolean {
+    return !!localStorage.getItem('userId'); // or check 'token'
+  }
+
+  getUserType(): string | null {
+    return localStorage.getItem('type');
+  }
+
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
+
+  getToken(): string | null {
+    return localStorage.getItem('token');
+  }
 }
+

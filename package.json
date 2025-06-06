@@ -1,6 +1,20 @@
 {
   "name": "user-admin",
   "version": "0.0.0",
+  "private": true,
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.0.",
+  "homepage": "https://github.com/vishudhGupta/salon_management_Frontend#readme",
+  "bugs": {
+    "url": "https://github.com/vishudhGupta/salon_management_Frontend/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/vishudhGupta/salon_management_Frontend.git"
+  },
+  "license": "ISC",
+  "author": "",
+  "type": "commonjs",
+  "main": "index.js",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -8,7 +22,6 @@
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
   },
-  "private": true,
   "dependencies": {
     "@angular/animations": "^16.2.0",
     "@angular/common": "^16.2.0",
@@ -19,10 +32,12 @@
     "@angular/platform-browser-dynamic": "^16.2.0",
     "@angular/router": "^16.2.0",
     "@fortawesome/fontawesome-free": "^6.7.2",
+    "angular-avatar": "^1.4.0",
     "bootstrap": "^5.3.6",
     "bootstrap-icons": "^1.13.1",
     "chart.js": "^3.9.1",
     "ng2-charts": "^4.1.1",
+    "ngx-avatar": "^4.1.0",
     "rxjs": "~7.8.0",
     "tslib": "^2.3.0",
     "zone.js": "~0.13.0"
