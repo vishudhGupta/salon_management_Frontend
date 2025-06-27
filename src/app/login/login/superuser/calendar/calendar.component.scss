@@ -1,0 +1,96 @@
+.calendar-container {
+  display: flex;
+  height: 100%;
+  overflow-x: auto;
+  font-family: Arial, sans-serif;
+}
+
+.timeline-column {
+  width: 80px;
+  background: #f0f0f0;
+  border-right: 1px solid #ccc;
+  padding-top: 60px;
+}
+
+.time-label {
+  height: 60px;
+  font-size: 12px;
+  padding: 5px;
+  text-align: right;
+  border-bottom: 1px dashed #ccc;
+  color: #555;
+}
+
+.experts-container {
+  display: flex;
+  flex: 1;
+  position: relative;
+}
+
+.expert-column {
+  width: 250px;
+  border-right: 1px solid #e0e0e0;
+  position: relative;
+}
+
+.expert-header {
+  display: flex;
+  align-items: center;
+  background-color: #fff;
+  padding: 10px;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  border-bottom: 1px solid #ccc;
+}
+
+.expert-header img {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.expert-info .name {
+  font-weight: bold;
+}
+
+.appointments-wrapper {
+  position: relative;
+  height: 1440px; // 24 hrs * 60 minutes
+}
+
+.appointment-card {
+  position: absolute;
+  left: 10px;
+  right: 10px;
+  background-color: #f9f9ff;
+  border-left: 5px solid #007bff;
+  padding: 5px 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  font-size: 12px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.appointment-card .appt-time {
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.appointment-card .appt-status {
+  margin-top: 5px;
+  text-transform: capitalize;
+  font-weight: 600;
+  font-size: 11px;
+}
+
+.appointment-card .confirmed {
+  color: green;
+}
+.appointment-card .pending {
+  color: orange;
+}
+.appointment-card .cancelled {
+  color: red;
+}

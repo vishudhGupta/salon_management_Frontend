@@ -1,0 +1,35 @@
+<div class="calendar-container">
+  <!-- Timeline Column -->
+  <div class="timeline-column">
+    <div *ngFor="let hour of hours" class="time-label">{{ hour }}</div>
+  </div>
+
+  <!-- Expert Columns -->
+  <div class="experts-container">
+    <div *ngFor="let expert of experts" class="expert-column">
+      <!-- Expert Header -->
+      <div class="expert-header">
+        <img [src]="expert.avatar" alt="{{ expert.name }}" />
+        <div class="expert-info">
+          <div class="name">{{ expert.name }}</div>
+          <div class="spec">{{ expert.specialization }}</div>
+        </div>
+      </div>
+
+      <!-- Appointments -->
+      <div class="appointments-wrapper">
+        <div
+          *ngFor="let appt of getAppointments(expert.expert_id)"
+          class="appointment-card"
+          [style.top]="getTop(appt.appointment_time)"
+          [style.height]="getHeight(appt.service.duration)"
+        >
+          <div class="appt-time">{{ appt.appointment_time }} - {{ addDuration(appt.appointment_time, appt.service.duration) }}</div>
+          <div class="appt-service">{{ appt.service.name }} ({{ appt.service.duration }} mins)</div>
+          <div class="appt-user">{{ appt.user.name }}</div>
+          <div class="appt-status" [ngClass]="appt.status">{{ appt.status }}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

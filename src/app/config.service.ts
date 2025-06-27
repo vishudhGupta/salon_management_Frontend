@@ -23,9 +23,11 @@ export class ConfigService {
   }
   logout(): void {
     localStorage.removeItem('userId');
+    localStorage.removeItem('salonId');
     localStorage.removeItem('type');
     localStorage.removeItem('token'); // optional, if using JWT
   }
+
 
   isLoggedIn(): boolean {
     return !!localStorage.getItem('userId'); // or check 'token'

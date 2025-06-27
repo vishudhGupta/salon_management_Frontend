@@ -9,6 +9,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { ConfigService } from './config.service';
 
 
+
 export function loadConfigFactory(configService: ConfigService): () => Promise<void> {
   return () => configService.loadConfig();
 }

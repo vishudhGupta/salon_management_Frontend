@@ -50,11 +50,13 @@ togglePasswordVisibility(): void {
          localStorage.setItem('type', response.type);
           this.router.navigate(['/user']);
         } else if (response?.type==='superuser'){
-           localStorage.setItem('userId', response.user_id);  
+           localStorage.setItem('salonId', response.salon_ids[0]);  
           localStorage.setItem('type', response.type);
-          this.router.navigate(['/superuser']);
+          console.log("Navigating to superuser");
+          this.router.navigateByUrl('superuser');
         } else {
           console.error('Unknown user type:', response?.type);
+
           // Handle unknown user type here
         }
       },

@@ -1,0 +1,105 @@
+<div class="d-flex justify-content-between align-items-center">
+  <h3>Experts</h3>
+  <!-- Button trigger modal -->
+  <button
+    type="button"
+    class="btn btn-primary"
+    (click)="openCreateModal()"
+  >
+    Add Expert
+  </button>
+
+  <!-- Modal -->
+  <div
+    class="modal fade"
+    id="createExpertModal"
+    tabindex="-1"
+    aria-labelledby="createExpertModalLabel"
+    aria-hidden="true"
+  >
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">{{ isEditMode ? 'Update Expert' : 'Create Expert' }}</h5>
+          <button
+            type="button"
+            class="btn-close"
+            data-bs-dismiss="modal"
+            aria-label="Close"
+          ></button>
+        </div>
+        <div class="modal-body">
+          <form
+            [formGroup]="expertForm"
+            (ngSubmit)="submitForm()"
+            class="row g-3"
+          >
+            <div class="col-md-6">
+              <label class="form-label">Name</label>
+              <input type="text" class="form-control" formControlName="name" />
+            </div>
+
+            <div class="col-md-6">
+              <label class="form-label">Phone</label>
+              <input type="text" class="form-control" formControlName="phone" />
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Address</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="address"
+              />
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Salon Id</label>
+              <input
+                type="text"
+                class="form-control"
+                formControlName="salon_id"
+                readonly
+              />
+            </div>
+            <div class="col-12">
+              <button type="submit" class="btn btn-primary">
+                 {{ isEditMode ? 'Update Expert' : 'Create Expert' }}
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<table class="table table-bordered table-light" *ngIf="experts.length">
+  <thead>
+    <tr>
+      <th scope="col">S.No</th>
+      <th scope="col">Expert Id</th>
+      <th scope="col">Name</th>
+      <th scope="col">Address</th>
+      <th scope="col">Phone No.</th>
+      <th scope="col">Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let expert of experts; let i = index">
+      <th scope="row">{{ i + 1 }}</th>
+      <td>{{ expert.expert_id }}</td>
+      <td>{{ expert.name }}</td>
+      <td>{{ expert.address }}</td>
+      <td>{{ expert.phone }}</td>
+      <td class="gap-2 d-flex justify-content-start">
+        <button class="btn btn-warning btn-sm" (click)="openEditModal(expert)">
+          <i class="bi bi-pencil-square"></i>
+        </button>
+        <button class="btn btn-danger btn-sm" (click)="deleteExpert(expert)">
+          <i class="bi bi-trash3"></i>
+        </button>
+      </td>
+    </tr>
+  </tbody>
+</table>

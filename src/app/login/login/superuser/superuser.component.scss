@@ -1,29 +1,21 @@
-.card {
-  border-radius: 0.75rem;
-  transition: all 0.2s ease;
-}
-.hover-zoom:hover {
-  transform: scale(1.03);
-}
-.hover-glow:hover {
-  box-shadow: 0 0 15px rgba(0, 123, 255, 0.2);
-}
-.table th, .table td {
-  vertical-align: middle;
-}
-@media (max-width: 576px) {
-  .card h5, .card h6 {
-    font-size: 0.95rem;
-  }
-  .table-responsive {
-    font-size: 0.85rem;
-  }
-}
-.navbar-brand span {
-  font-size: 1.1rem;
-  color: #333;
+.topbar{
+  height: 4rem;
+  width: 100vw;
 }
 
-.dropdown-toggle::after {
-  display: none;
+.sidebar{
+  background-color: #323336;
+  border-right: 1px solid #dee2e6;
+  width: 10rem;
+  height: calc(100vh - 4rem);
+  position: fixed;
+}
+main{
+  width: calc(100vw - 10rem);
+  position: absolute;
+  top: 4rem;
+  left: 0;
+  margin-left: 10rem;
+  height: calc(100vh - 4rem);
+  overflow-y: auto;
 }

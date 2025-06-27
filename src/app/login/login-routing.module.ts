@@ -4,6 +4,10 @@ import { LoginComponent } from './login/login.component';
 import { UserComponent } from './login/user/user.component';
 import { SuperuserComponent } from './login/superuser/superuser.component';
 import { authGuard } from '../auth.guard';
+import { CalendarComponent } from './login/superuser/calendar/calendar.component';
+import { DashboardComponent } from './login/superuser/dashboard/dashboard.component';
+import { ExpertsComponent } from './login/superuser/experts/experts.component';
+import { ServicesComponent } from './login/superuser/services/services.component';
 
 const routes: Routes = [
   {
@@ -18,7 +22,13 @@ const routes: Routes = [
   {
     path: 'superuser',
     component: SuperuserComponent,
-    canActivate: [authGuard]
+    canActivate: [authGuard],
+    children: [
+      {path: 'calendar', component: CalendarComponent},
+      {path: 'dashboard', component: DashboardComponent},
+      {path: 'experts', component: ExpertsComponent},
+      {path: 'services', component: ServicesComponent},
+    ]
   },
 ];
 
